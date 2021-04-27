@@ -1,0 +1,258 @@
+﻿@page "/"
+@using WebApplication.Algorithm
+
+<div class="container text-center">
+    <h1>Enigma Simulator Blazor</h1>
+    <form>
+        <div class="form-group row">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 offset-xl-3 offset-lg-3 offset-md-3">
+                <label class="form-label">Starting Char</label>
+                <div class="row">
+                    <div class="input-group col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                        <span class="input-group-text col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7">1st Rotor</span>
+                        <select @bind="_firstRotorStartingCharInput" class="form-select col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5">
+                            <option value="A" selected>A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                            <option value="E">E</option>
+                            <option value="F">F</option>
+                            <option value="G">G</option>
+                            <option value="H">H</option>
+                            <option value="I">I</option>
+                            <option value="J">J</option>
+                            <option value="K">K</option>
+                            <option value="L">L</option>
+                            <option value="M">M</option>
+                            <option value="N">N</option>
+                            <option value="O">O</option>
+                            <option value="P">P</option>
+                            <option value="Q">Q</option>
+                            <option value="R">R</option>
+                            <option value="S">S</option>
+                            <option value="T">T</option>
+                            <option value="U">U</option>
+                            <option value="V">V</option>
+                            <option value="W">W</option>
+                            <option value="X">X</option>
+                            <option value="Y">Y</option>
+                            <option value="Z">Z</option>
+                        </select>
+                    </div>
+                    <div class="input-group col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                        <span class="input-group-text col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7">2nd Rotor</span>
+                        <select @bind="_secondRotorStartingCharInput" class="form-select col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5">
+                            <option value="A" selected>A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                            <option value="E">E</option>
+                            <option value="F">F</option>
+                            <option value="G">G</option>
+                            <option value="H">H</option>
+                            <option value="I">I</option>
+                            <option value="J">J</option>
+                            <option value="K">K</option>
+                            <option value="L">L</option>
+                            <option value="M">M</option>
+                            <option value="N">N</option>
+                            <option value="O">O</option>
+                            <option value="P">P</option>
+                            <option value="Q">Q</option>
+                            <option value="R">R</option>
+                            <option value="S">S</option>
+                            <option value="T">T</option>
+                            <option value="U">U</option>
+                            <option value="V">V</option>
+                            <option value="W">W</option>
+                            <option value="X">X</option>
+                            <option value="Y">Y</option>
+                            <option value="Z">Z</option>
+                        </select>
+                    </div>
+                    <div class="input-group col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                        <span class="input-group-text col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7">3rd Rotor</span>
+                        <select @bind="_thirdRotorStartingCharInput" class="form-select col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5">
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                            <option value="E">E</option>
+                            <option value="F">F</option>
+                            <option value="G">G</option>
+                            <option value="H">H</option>
+                            <option value="I">I</option>
+                            <option value="J">J</option>
+                            <option value="K">K</option>
+                            <option value="L">L</option>
+                            <option value="M">M</option>
+                            <option value="N">N</option>
+                            <option value="O">O</option>
+                            <option value="P">P</option>
+                            <option value="Q">Q</option>
+                            <option value="R">R</option>
+                            <option value="S">S</option>
+                            <option value="T">T</option>
+                            <option value="U">U</option>
+                            <option value="V">V</option>
+                            <option value="W">W</option>
+                            <option value="X">X</option>
+                            <option value="Y">Y</option>
+                            <option value="Z" selected>Z</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
+                <button @onclick="SetUp" type="button" class="btn btn-outline-primary">SetUp</button>
+            </div>
+        </div>
+        <hr/>
+        <div class="form-group row">
+            <div class="col">
+                <label class="form-label">Keyboard</label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col">
+                <button @onclick="Q" type="button" class="btn btn-outline-primary" disabled="@_keyboardDisabled">Q</button>
+                <button @onclick="W" type="button" class="btn btn-outline-primary" disabled="@_keyboardDisabled">W</button>
+                <button @onclick="E" type="button" class="btn btn-outline-primary" disabled="@_keyboardDisabled">E</button>
+                <button @onclick="R" type="button" class="btn btn-outline-primary" disabled="@_keyboardDisabled">R</button>
+                <button @onclick="T" type="button" class="btn btn-outline-primary" disabled="@_keyboardDisabled">T</button>
+                <button @onclick="Y" type="button" class="btn btn-outline-primary" disabled="@_keyboardDisabled">Y</button>
+                <button @onclick="U" type="button" class="btn btn-outline-primary" disabled="@_keyboardDisabled">U</button>
+                <button @onclick="I" type="button" class="btn btn-outline-primary" disabled="@_keyboardDisabled">I</button>
+                <button @onclick="O" type="button" class="btn btn-outline-primary" disabled="@_keyboardDisabled">O</button>
+                <button @onclick="P" type="button" class="btn btn-outline-primary" disabled="@_keyboardDisabled">P</button>
+                <button @onclick="Undo" type="button" class="btn btn-outline-primary" disabled="@_keyboardDisabled">
+                    <span class="oi oi-delete"></span>
+                </button>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col">
+                <button @onclick="A" type="button" class="btn btn-outline-primary" disabled="@_keyboardDisabled">A</button>
+                <button @onclick="S" type="button" class="btn btn-outline-primary" disabled="@_keyboardDisabled">S</button>
+                <button @onclick="D" type="button" class="btn btn-outline-primary" disabled="@_keyboardDisabled">D</button>
+                <button @onclick="F" type="button" class="btn btn-outline-primary" disabled="@_keyboardDisabled">F</button>
+                <button @onclick="G" type="button" class="btn btn-outline-primary" disabled="@_keyboardDisabled">G</button>
+                <button @onclick="H" type="button" class="btn btn-outline-primary" disabled="@_keyboardDisabled">H</button>
+                <button @onclick="J" type="button" class="btn btn-outline-primary" disabled="@_keyboardDisabled">J</button>
+                <button @onclick="K" type="button" class="btn btn-outline-primary" disabled="@_keyboardDisabled">K</button>
+                <button @onclick="L" type="button" class="btn btn-outline-primary" disabled="@_keyboardDisabled">L</button>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col">
+                <button @onclick="Z" type="button" class="btn btn-outline-primary" disabled="@_keyboardDisabled">Z</button>
+                <button @onclick="X" type="button" class="btn btn-outline-primary" disabled="@_keyboardDisabled">X</button>
+                <button @onclick="C" type="button" class="btn btn-outline-primary" disabled="@_keyboardDisabled">C</button>
+                <button @onclick="V" type="button" class="btn btn-outline-primary" disabled="@_keyboardDisabled">V</button>
+                <button @onclick="B" type="button" class="btn btn-outline-primary" disabled="@_keyboardDisabled">B</button>
+                <button @onclick="N" type="button" class="btn btn-outline-primary" disabled="@_keyboardDisabled">N</button>
+                <button @onclick="M" type="button" class="btn btn-outline-primary" disabled="@_keyboardDisabled">M</button>
+            </div>
+        </div>
+        <hr/>
+        <div class="form-group row">
+            <div class="col">
+                <label class="form-label">Current Char</label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="input-group col-xl-2 col-lg-2 col-md-4 col-sm-12 col-12 offset-xl-3 offset-lg-3">
+                <span class="input-group-text col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7">1st Rotor</span>
+                <input @bind="_firstRotorCurrentChar" type="text" class="form-control col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5 text-center" readonly/>
+            </div>
+            <div class="input-group col-xl-2 col-lg-2 col-md-4 col-sm-12 col-12">
+                <span class="input-group-text col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7">2nd Rotor</span>
+                <input @bind="_secondRotorCurrentChar" type="text" class="form-control col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5 text-center" readonly/>
+            </div>
+            <div class="input-group col-xl-2 col-lg-2 col-md-4 col-sm-12 col-12">
+                <span class="input-group-text col-xl-7 col-lg-7 col-md-7 col-sm-7 col-7">3rd Rotor</span>
+                <input @bind="_thirdRotorCurrentChar" type="text" class="form-control col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5 text-center" readonly/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                <label class="form-label">Original Message</label>
+                <input @bind="_enigma.OriginalMessage" type="text" class="form-control" placeholder="Your original message will be shown here!" readonly/>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                <label class="form-label">Encrypted Message</label>
+                <input @bind="_enigma.EncryptedMessage" type="text" class="form-control" placeholder="Your encrypted message will be shown here!" readonly/>
+            </div>
+        </div>
+    </form>
+    <small>Developed by <a href="https://github.com/crisbraatz" target="_blank">Cristopher Braatz Cardoso</a> and hosted by <a href="https://pages.github.com" target="_blank">GitHub Pages</a>.</small>
+</div>
+
+@code {
+    private readonly Enigma _enigma = new();
+    private char? _firstRotorStartingCharInput;
+    private char? _firstRotorCurrentChar;
+    private char? _secondRotorStartingCharInput;
+    private char? _secondRotorCurrentChar;
+    private char? _thirdRotorStartingCharInput;
+    private char? _thirdRotorCurrentChar;
+    private bool _keyboardDisabled = true;
+
+    private void SetUp()
+    {
+        _enigma.EncryptedMessage = default;
+        _enigma.OriginalMessage = default;
+        _enigma.Plugboard = new Plugboard("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+        _enigma.FirstRotor = new RotorOne(_firstRotorStartingCharInput ?? 'A');
+        _enigma.SecondRotor = new RotorTwo(_secondRotorStartingCharInput ?? 'A');
+        _enigma.ThirdRotor = new RotorThree(_thirdRotorStartingCharInput ?? 'Z');
+        _firstRotorCurrentChar = _enigma.FirstRotor.CurrentChar;
+        _secondRotorCurrentChar = _enigma.SecondRotor.CurrentChar;
+        _thirdRotorCurrentChar = _enigma.ThirdRotor.CurrentChar;
+        _keyboardDisabled = false;
+    }
+
+    private void Encrypt(char character)
+    {
+        _enigma.Encrypt(character);
+        _firstRotorCurrentChar = _enigma.FirstRotor.CurrentChar;
+        _secondRotorCurrentChar = _enigma.SecondRotor.CurrentChar;
+        _thirdRotorCurrentChar = _enigma.ThirdRotor.CurrentChar;
+    }
+
+    private void Undo()
+    {
+        _enigma.Undo();
+        _firstRotorCurrentChar = _enigma.FirstRotor.CurrentChar;
+        _secondRotorCurrentChar = _enigma.SecondRotor.CurrentChar;
+        _thirdRotorCurrentChar = _enigma.ThirdRotor.CurrentChar;
+    }
+
+    private void A() => Encrypt('A');
+    private void B() => Encrypt('B');
+    private void C() => Encrypt('C');
+    private void D() => Encrypt('D');
+    private void E() => Encrypt('E');
+    private void F() => Encrypt('F');
+    private void G() => Encrypt('G');
+    private void H() => Encrypt('H');
+    private void I() => Encrypt('I');
+    private void J() => Encrypt('J');
+    private void K() => Encrypt('K');
+    private void L() => Encrypt('L');
+    private void M() => Encrypt('M');
+    private void N() => Encrypt('N');
+    private void O() => Encrypt('O');
+    private void P() => Encrypt('P');
+    private void Q() => Encrypt('Q');
+    private void R() => Encrypt('R');
+    private void S() => Encrypt('S');
+    private void T() => Encrypt('T');
+    private void U() => Encrypt('U');
+    private void V() => Encrypt('V');
+    private void W() => Encrypt('W');
+    private void X() => Encrypt('X');
+    private void Y() => Encrypt('Y');
+    private void Z() => Encrypt('Z');
+
+}
